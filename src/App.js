@@ -1,24 +1,88 @@
 import logo from './logo.svg';
 import './App.css';
+import { Container, Statistic, Header, Segment, Grid, Icon } from 'semantic-ui-react';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Header as="h1">
+        Budget
+      </Header>
+      <Statistic size="small">
+        <Statistic.Label>
+          Your Balance
+        </Statistic.Label>
+        <Statistic.Value>
+          2505.53
+        </Statistic.Value>
+      </Statistic>
+
+      <Segment textAlign='center'>
+        <Grid columns={2} divided>
+          <Grid.Row>
+            <Grid.Column>
+              <Statistic size='tiny' color='green'>
+              <Statistic.Label style={{textAlign:"left"}}>
+                Incoming :
+              </Statistic.Label>
+              <Statistic.Value>
+                1045.50
+              </Statistic.Value>
+              </Statistic>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Statistic size='tiny' color='red'>
+                <Statistic.Label style={{textAlign:"right"}}>
+                  Expense : 
+                </Statistic.Label>
+                <Statistic.Value>
+                  500.43
+                </Statistic.Value>
+              </Statistic>
+            </Grid.Column>
+
+          </Grid.Row>
+        </Grid>
+      </Segment>
+
+
+      <Header as="h3">History</Header>
+      <Segment color='red'>
+        <Grid columns={3} textAlign='right'>
+          <Grid.Row>
+            <Grid.Column width={10} textAlign='left'>
+              Something
+            </Grid.Column>
+            <Grid.Column width={3} textAlign='right'>
+              $10.00
+            </Grid.Column>
+            <Grid.Column width={3}>
+              <Icon name='edit' bordered />
+              <Icon name='trash' bordered />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+      <Segment color='green'>
+        <Grid columns={3} textAlign='right'>
+          <Grid.Row>
+            <Grid.Column width={10} textAlign='left'>
+              Something
+            </Grid.Column>
+            <Grid.Column width={3} textAlign='right'>
+              $10.00
+            </Grid.Column>
+            <Grid.Column width={3}>
+              <Icon name='edit' bordered />
+              <Icon name='trash' bordered />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+
+
+    </Container>
   );
 }
 
