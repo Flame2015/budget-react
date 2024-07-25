@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Segment,Icon,Grid } from "semantic-ui-react";
 
-function EntryLine({description, value, isExpense}){
-   
+
+function Entry({id,description, value, isExpense,deleteEntry,editEntry}){
+
     return (
+      <Fragment>
         <Segment color={isExpense ? 'red':'green'}>
         <Grid columns={3} textAlign='right'>
           <Grid.Row>
@@ -14,13 +16,14 @@ function EntryLine({description, value, isExpense}){
              {value}
             </Grid.Column>
             <Grid.Column width={3}>
-              <Icon name='edit' bordered />
-              <Icon name='trash' bordered />
+              <Icon name='edit' bordered onClick={() => editEntry(id)}/>
+              <Icon name='trash' bordered onClick={()=>deleteEntry(id)}/>
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </Segment>
+      </Fragment>
     )
 }
 
-export default EntryLine;
+export default Entry;
