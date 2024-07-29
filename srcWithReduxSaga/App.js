@@ -8,16 +8,22 @@ import DisplayAllBalances from './components/DisplayAllBlances';
 import EntryLines from './components/EntryLines';
 import ModalEdit from './components/Modal';
 
+
+import {useSelector} from 'react-redux';
+
+
+
 function App() {
 
   const[entries, setEntries] = useState(initialEntires);
-
   const [description, setDescription] = useState('');
   const [value, setValue] = useState("")
   const [isExpense,setIsExpense]=useState(true);
   const [isOpen, SetIsopen] = useState(false)
   const [entryID, setEntryId] = useState();
   const [totalBalance,setTotalBalance] = useState(0);
+
+  const entriesRedux = useSelector((state) => state.entries);
 
   useEffect(() =>{
     if(!isOpen && entryID){
@@ -28,7 +34,6 @@ function App() {
       newEntries[index].isExpense = isExpense;
       setEntries(newEntries);
       resetEntry();
-
     }
   },[isOpen]);
 
@@ -47,8 +52,6 @@ function App() {
     });
     let total = totalincome - totalexpense;
     setTotalBalance(total);
-    console.log(totalexpense,totalincome);
-    console.log("total balance : ", total)
     },[entries])
 
 
@@ -88,7 +91,7 @@ function App() {
     <Container>
       <MainHeader title="Budget" type="h1"/>
 
-      <image title="img title"/>
+   
 
       <DisplayBlance title=" Your Balance" value={totalBalance} size="small"/>
 
@@ -98,7 +101,7 @@ function App() {
       <MainHeader title="History" type="h3"/>
 
       <EntryLines 
-        entries={entries} 
+        entries={entriesRedux} 
         deleteEntry={deleteEntry} 
         description={description}  
         value={value}

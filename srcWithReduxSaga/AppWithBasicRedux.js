@@ -7,10 +7,68 @@ import DisplayBlance from './components/DisplayBalance';
 import DisplayAllBalances from './components/DisplayAllBlances';
 import EntryLines from './components/EntryLines';
 import ModalEdit from './components/Modal';
+import  { createStore } from 'redux';
+// import { configureStore } from '@reduxjs/toolkit';
+
+
+
+
 
 function App() {
 
   const[entries, setEntries] = useState(initialEntires);
+
+  const store = createStore((state = initialEntires, action) => {
+
+    let newEntries;
+    switch(action.type){
+      case 'ADD_ENTRY':
+
+         newEntries = state.concat({...action.payload});
+        return newEntries;
+        break;
+      case 'REMOVE_ENTRY':
+         newEntries = state.filter(
+          (entry) => entry.id !== action.payload.id
+        );  
+        return newEntries;
+
+        default:
+          return state;
+    }
+      return state;
+  });
+
+  store.subscribe(() => {
+    console.log('Store : ', store.getState());
+  })
+
+ 
+
+  const payload_add= {
+    id: 5,
+    description:"Hello from Redux",
+    value: 1000,
+    isExpense: false
+  };
+  const payload_remove= {
+    id: 1,
+  }
+
+function addEntryRedux(payload_add){
+  return {type : 'ADD_ENTRY', payload:payload_add};
+}
+
+function removeEntryRedux(id){
+  return {type:'REMOVE_ENTRY' , payload:{id}}
+}
+  // store.dispatch({type : 'ADD_ENTRY', payload:payload_add});
+  store.dispatch(addEntryRedux(payload_add));
+  store.dispatch(removeEntryRedux (3));
+
+  
+ 
+
 
   const [description, setDescription] = useState('');
   const [value, setValue] = useState("")
@@ -47,8 +105,6 @@ function App() {
     });
     let total = totalincome - totalexpense;
     setTotalBalance(total);
-    console.log(totalexpense,totalincome);
-    console.log("total balance : ", total)
     },[entries])
 
 
